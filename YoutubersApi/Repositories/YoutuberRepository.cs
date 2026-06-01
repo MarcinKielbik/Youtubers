@@ -1,52 +1,49 @@
+using Microsoft.EntityFrameworkCore;
+using YoutubersApi.Models;
+using YoutubersApi.Data;
+
 namespace YoutubersApi.Repositories;
 
-public class YoutuberRepository
+public class YoutuberRepository : IYoutuberRepository  
 {
-    private readonly AppDbContext _youtuberContext;
+    private readonly AppDbContext _context;
 
-    public YoutuberRepository(AppDbContext youtuberContext)
+    public YoutuberRepository(AppDbContext context)
     {
-        _youtuberContext = youtuberContext;
+        _context = context;
     }
 
     public async Task<List<Youtuber>> GetAllYoutubersAsync()
     {
-        return await _youtuberContext.Youtuber.ToListAsync();
+        return await _context.Youtubers.ToListAsync();
     }
 
-    public async Task<Youtuber?> GetYoutuberById(int id)
+    public async Task<Youtuber?> GetYoutuberByIdAsync(int id)
     {
-        return await _youtuberContext.Youtuber.FindAsync(id);
+        return await _context.Youtubers.FindAsync(id);
     }
 
-    public async Task<Youtuber> AddYoutuberById(Youtuber youtuber)
+    public async Task<Youtuber> AddYoutuberAsync(Youtuber youtuber)
     {
-        _youtuberContext.Youtuber.Add(youtuber);
-
-        await _youtuberContext.SaveChangesAsync();
-
+        _context.Youtubers.Add(youtuber);
+        await _context.SaveChangesAsync();
         return youtuber;
     }
 
     public async Task UpdateYoutuberAsync(Youtuber youtuber)
     {
-        _youtuberContext.Youtuber.Update(youtuber);
-
-        await _youtuberContext.SaveChangesAsync();
+        _context.Youtubers.Update(youtuber);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> DeleteYoutuberAsync(int id)
     {
-        var youtuber = await _youtuberContext.Youtuber.FindAsync(id);
-
+        var youtuber = await _context.Youtubers.FindAsync(id);
         if (youtuber is null)
-        {
             return false;
-        }
 
-        _youtuberContext.Youtuber.Remove(youtuber);
-        await _youtuberContext.SaveChangesAsync();
+        _context.Youtubers.Remove(youtuber);
+        await _context.SaveChangesAsync();
         return true;
     }
-
 }

@@ -1,0 +1,27 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Rider (JetBrains)
+.idea/
+
+# VS Code
+.vscode/
+
+# Baza SQLite - opcjonalnie, patrz niżej
+*.db
+*.db-shm
+*.db-wal
+
+# Sekrety i konfiguracja lokalna
+appsettings.Development.json
+secrets.json
+
+# System
+.DS_Store
+Thumbs.db
