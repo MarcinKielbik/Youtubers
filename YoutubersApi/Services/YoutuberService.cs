@@ -51,15 +51,15 @@ public class YoutuberService : IYoutuberService
     private static void Validate(Youtuber youtuber)
     {
         if (string.IsNullOrWhiteSpace(youtuber.Name))
-            throw new ArgumentException("Name jest wymagane.");
+            throw new ArgumentException("Name is required.");
 
         if (string.IsNullOrWhiteSpace(youtuber.ChannelName))
-            throw new ArgumentException("ChannelName jest wymagane.");
+            throw new ArgumentException("Channel name is required.");
 
         if (youtuber.Subscribers < 0)
-            throw new ArgumentException("Subscribers nie może być ujemne.");
+            throw new ArgumentException("Subscribers cannot be negative.");
 
         if (string.IsNullOrWhiteSpace(youtuber.Category))
-            throw new ArgumentException("Category jest wymagana.");
+            throw new ArgumentException("Category is required.");
     }
 }
