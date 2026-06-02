@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using YoutubersApi.Data;
 using YoutubersApi.Repositories;
+using YoutubersApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddScoped<IYoutuberRepository, YoutuberRepository>();
 
+builder.Services.AddScoped<IYoutuberService, YoutuberService>();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -23,6 +28,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+app.MapControllers();
 app.UseHttpsRedirection();
 
 app.Run();
